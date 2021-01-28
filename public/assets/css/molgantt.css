@@ -1,0 +1,588 @@
+
+td.today{
+  border-left-width: 2px !important;
+  border-left-color:rgb(255, 0, 0)!important;
+}
+
+table { border-collapse: collapse; }
+
+th, td:not(.today) {
+  border-left-color: transparent!important; 
+  overflow:visible;
+
+}
+th{text-align: center;}
+
+
+
+
+
+.molcontainer {
+  outline: 1px solid rgb(192, 216, 243);
+  border-color:rgb(192, 216, 243);
+  outline-offset: 0px;
+  width: 100%;
+
+  overflow: hidden;
+  display: inline-flex;
+  border: solid; 
+  border-width: 1px;
+}
+
+
+:root {
+  --leftwidth: 940px;
+  --leftmarginmiddle: 924px; /*  --leftwidth - 16 */
+}
+
+
+.tabWrap {
+  height: 500px;
+  margin-right: 0px;
+  margin-bottom: 0;
+
+
+}
+#lcont{
+     float:left; /* add this */
+     width: var(--leftwidth);
+   
+   
+}
+
+
+#leftdiv{
+    float:left; /* add this */
+    width:  var(--leftwidth);
+    overflow: scroll;
+    padding-right: 12px;
+    padding-bottom: 0px;
+
+
+}
+#middlediv{
+    float:left; /* add this */
+    width: 5px;
+    background-color: rgb(71, 110, 155);
+     height: 540px;
+     cursor: ew-resize;
+     z-index: 400;
+     margin-left: var(--leftmarginmiddle);
+     position: absolute;;
+
+
+
+}
+
+#rcont{
+  float:left; /* add this */
+    width: 1105px;
+    margin-left:-15px;
+    z-index: 299;
+
+    
+}
+#rightdiv{
+  margin-left: 0px;
+     float:left; /* add this */
+     width: 100%;
+     overflow: scroll;
+
+}
+
+.gridtable {
+  color:#333333;
+  font-family: verdana,arial,sans-serif;
+  font-size:11px;
+ 
+
+}
+
+.gridtable th {
+  border-width: 1px;
+  border-style: solid;
+  border-color:rgb(71, 110, 155);
+  background-image:linear-gradient(rgb(155, 201, 253),rgb(206, 229, 255) );
+  padding: 8px;
+  height: 10px;
+}
+
+.gridtable td {
+  border-width: 1px;
+  padding: 4px;
+  padding-top: 1px;
+  border-style: solid;
+  border-color: rgb(192, 216, 243);
+  background-color: #ffffff;
+  height: 10px;
+  overflow:visible;
+  enable-background: 0%;
+  
+
+}
+
+.clSat {
+  background-color: rgb(219, 224, 255)!important;
+}
+
+.clSun {
+  background-color: rgb(255, 226, 226)!important;
+}
+
+.gridtableT { color: rgb(79, 10, 190); }
+
+.gridtableT th { 
+    border-top-color: transparent; 
+    height: 49px; 
+    background-color: #b8ddff}
+
+.lastRow td {
+  background-color: lightcyan;
+}
+
+div.tabWrap th {
+  border-bottom-color: transparent!important;
+  border-top-color: transparent!important;
+}
+
+.rightheaderdiv{
+  margin-top: -22px;
+}
+.dhead {
+  width:20px;
+  height: 20px;
+
+}
+
+
+.dtd {
+  width:20px;
+  height: 14px;
+  overflow: hidden;
+  background: transparent;
+}
+
+.dtd.isparent {
+  font-weight: bold;
+}
+
+
+
+.dtdo {
+  width:20px;
+  height: 14px;
+  overflow: visible;
+  
+}
+
+.col_Id{
+  width:20px;
+}
+.col_Task{
+  width:340px;
+}
+.col_Project{
+  width:100px;
+}
+.col_Priority{
+  width:14px;
+}
+.col_Type{
+  width:54px;
+}
+.col_Action{
+  width:54px;
+}
+
+.col_Status{
+	width:60px;
+}
+
+.col_StartD{
+	width:70px;
+}
+
+
+.col_EndD{
+	width:70px;
+}
+
+.task{
+  overflow: visible;
+  background-image: linear-gradient(rgb(40, 105, 180),rgb(131, 189, 255));
+  color:rgb(240, 240, 240);
+  z-index: 200;
+  position: sticky;
+  padding:3px;
+  padding-top:0px;
+  margin-left: -4px;
+  cursor: move;
+  height: 15px;
+  white-space: nowrap;
+  font-size: 8pt;
+  text-align: center;
+  
+} 
+
+
+.task.isparent{
+  
+  background-image: linear-gradient(rgb(221, 231, 243),rgb(131, 189, 255));
+  height: 8px;  
+  color: transparent;
+}
+
+.milestone{
+  
+  background-color: transparent;
+  color:rgb(80, 79, 79);
+  z-index: 200;
+  position: sticky;
+  padding:3px;
+  margin-left: -13px;
+  cursor: move;
+  height: 13px;
+  white-space: nowrap;
+  font-size: 8pt;
+  width:13px;
+  margin-top: -10px;
+  
+  
+} 
+
+#thaction{
+
+  margin-left: -4px;
+  margin-top: 10px;
+
+}
+
+.cross{
+  height: 13px;
+  width: 13px;
+  background-image: linear-gradient(rgb(40, 105, 180),rgb(70, 153, 248));
+  clip-path: polygon(0 40%, 40% 40%, 40% 0%, 60% 0%, 60% 40%, 100% 40%, 100% 60%, 60% 60%, 60% 100%, 40% 100%, 40% 60%, 0 60%);
+  
+  cursor: pointer;
+
+}
+
+.reschedule{
+  height: 13px;
+  width: 13px;
+ 
+  margin-left:50px;
+  margin-top:-13px;
+  cursor: pointer;
+
+}
+
+.reschedule img{
+
+  height: 13px;
+  width: 13px;
+  margin-top:-13px;
+}
+
+
+.crossm{
+  height: 13px;
+  width: 13px;
+  background-image: linear-gradient(rgb(69, 138, 250),rgb(70, 227, 248));
+  clip-path: polygon(0 40%, 40% 40%, 40% 0%, 60% 0%, 60% 40%, 100% 40%, 100% 60%, 60% 60%, 60% 100%, 40% 100%, 40% 60%, 0 60%);
+  cursor: pointer;
+  margin-left:18px;
+  margin-top:-13px;
+}
+
+.crossma{
+  height: 13px;
+  width: 13px;
+  background-image: linear-gradient(rgb(69, 138, 250),rgb(70, 227, 248));
+  clip-path: polygon(0 40%, 40% 40%, 40% 0%, 60% 0%, 60% 40%, 100% 40%, 100% 60%, 60% 60%, 60% 100%, 40% 100%, 40% 60%, 0 60%);
+  cursor: pointer;
+  margin-left:13px;
+  margin-top:-13px;
+}
+
+
+.minus{
+  height: 13px;
+  width: 13px;
+  background-image: linear-gradient(rgb(40, 105, 180),rgb(70, 153, 248));
+  clip-path: polygon(10% 40%, 90% 40%, 90% 60%, 10% 60%);
+  
+  margin-left:33px;
+  margin-top:-13px;
+  cursor: pointer;
+}
+
+.milestoneromb{
+  
+  background-image: linear-gradient(rgb(240, 0, 0),rgb(255, 242, 242));
+  color:rgb(80, 79, 79);
+  z-index: 200;
+  margin-top: -10px;
+  padding:3px;
+  margin-left: -3px;
+  cursor: move;
+  height: 14px;
+  white-space: nowrap;
+  font-size: 8pt;
+  width:14px;
+  clip-path: polygon(50% 0%, 100% 50%, 50% 100%, 0% 50%);
+  
+} 
+
+.milestonespan{
+  margin-left: 40px;
+
+}
+
+.taskspan{
+  color: rgb(80, 143, 246);
+  cursor: auto;
+
+
+}
+
+.linkhidden{
+  display: none;
+}
+
+.leftdiv{
+  float: left;
+  height: 13px;
+  width:3px;
+  background-image: linear-gradient(rgb(221, 231, 243),rgb(131, 189, 255));
+  margin-top: -16px;
+  margin-left: -3px;
+  cursor: ew-resize;
+  position: absolute;
+}
+
+.rightdiv{
+  float: right;
+  height: 13px;
+  width:3px;
+  background-image: linear-gradient(rgb(221, 231, 243),rgb(131, 189, 255));
+  margin-top: -16px;
+  cursor: ew-resize;
+  position: absolute;
+
+}
+
+.link{
+  height: 10px;
+  width: 10px;
+  background-image: linear-gradient(rgb(40, 105, 180),rgb(131, 189, 255));
+  margin-top: -13px;
+  cursor: pointer;
+  position: absolute;
+  border-radius: 50%;
+
+}
+
+.link.linkover{
+  background-image: linear-gradient(rgb(180, 40, 40),rgb(255, 131, 131));
+  height: 12px;
+  width: 12px;
+}
+
+
+.link.sourcelink{
+  background-image: linear-gradient(rgb(91, 180, 40),rgb(156, 255, 131));
+  height: 12px;
+  width: 12px;
+}
+
+.leftlink{
+  float: left;
+  margin-left: -14px;
+}
+
+.rightlink{
+  float: right;
+  
+
+}
+
+
+
+
+.link.milestonelink{
+  background-image: linear-gradient(rgb(240, 0, 0),rgb(255, 242, 242));
+  margin-top: -12px;;
+
+}
+
+.rightlink.milestonelink{
+  float: right;
+  margin-left: 13px;
+
+}
+
+.tasklabel{
+  text-align: right;
+  position: absolute;
+  margin-right: 200px;
+  color: rgb(175, 175, 175);
+}
+
+
+/*------------------------*/
+.rTable {
+  display: table;
+  width: 100%;
+}
+.rTableRow {
+  display: table-row;
+}
+.rTableHeading {
+  display: table-header-group;
+  background-color: #ddd;
+}
+.rTableCell, .rTableHead {
+  display: table-cell;
+  padding: 3px 10px;
+  border: 1px solid #999999;
+}
+.rTableHeading {
+  display: table-header-group;
+  background-color: #ddd;
+  font-weight: bold;
+}
+.rTableFoot {
+  display: table-footer-group;
+  font-weight: bold;
+  background-color: #ddd;
+}
+.rTableBody {
+  display: table-row-group;
+}
+
+
+.tooltip {
+  text-decoration:none;
+  position:relative;
+}
+.tooltip span {
+  display:none;
+}
+.tooltip:hover span {
+  display:block;
+  position:fixed;
+  overflow:hidden;
+}
+
+.noselect {
+  -webkit-touch-callout: none; /* iOS Safari */
+    -webkit-user-select: none; /* Safari */
+     -khtml-user-select: none; /* Konqueror HTML */
+       -moz-user-select: none; /* Firefox */
+        -ms-user-select: none; /* Internet Explorer/Edge */
+            user-select: none; /* Non-prefixed version, currently
+                                  supported by Chrome and Opera */
+}
+
+
+tr.Defined td{
+  background-color: rgb(226, 242, 255);
+}
+
+tr.ToDo td{
+  background-color: rgb(226, 242, 255);
+  color:red;
+  font-style: italic;
+}
+
+tr.Scheduled td{
+  background-color:rgb(253, 222, 222);
+}
+
+tr.Done td{
+  background-color:rgb(225, 251, 229);
+}
+
+tr.Closed td{
+  background-color:rgb(211, 211, 211);
+}
+
+#ganttpopup{
+  width:100px;
+  height:100px;
+
+  margin-left:100px;
+  margin-top:100px;
+
+  position: relative;
+  background-color: red;
+  z-index: 20000;
+
+}
+.deptable  th{
+  text-align: left;
+}
+
+tr.SelectedTask td:not(.td_id) {
+  font-style: italic;
+
+  color: red;
+  border-bottom-color: red;
+}
+.modal-footer{
+border-top-width: 0;
+
+}
+
+
+#name{
+  
+  font-weight: normal;
+  font-family: serif;
+  font-size: 14px;
+}
+
+#description{
+  font-family: sans-serif;
+  font-size: 16px;
+}
+
+.taskpaneldiv{
+  
+  height: 20px;
+  width: 1000px ; 
+  margin-left: -15px;
+  margin-top: -15px;
+  cursor: auto;
+}
+
+
+
+
+
+.progressbar {
+
+    background-color: rgb(89, 251, 1);
+    float: left;
+    height: 2px;
+    margin-left: -3px;
+    margin-top: -16px;
+    position: absolute;
+
+.orizontallink{
+  background-color: rgb(58, 51, 119);
+  height: 2px;
+  margin-top: -1px;
+  cursor: auto;
+
+}
+
+
+.verticallink{
+  background-color: rgb(58, 51, 119);
+  width: 2px;
+  margin-top: -1px;
+  cursor: auto;
+
+}
