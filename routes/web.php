@@ -137,12 +137,14 @@ Route::get('/view-clear', function() {
                 Route::post('deletereportcatajax', 'ReportcatController@deleteitemajax');
     
 
-                //============================= partners ======================================
+                //============================= 25 ======================================
                 Route::get('training25s', 'Training25Controller@getList');
                 Route::post('savetraining25ajax', 'Training25Controller@saveitemajax');
                 Route::post('gettraining25sajax', 'Training25Controller@getitemsajax');
                 Route::post('gettraining25ajax', 'Training25Controller@getitemajax');
                 Route::post('deletetraining25ajax', 'Training25Controller@deleteitemajax');
+                Route::post('getPersonInfo', 'Training25Controller@getPersonInfo');
+                
 
             });
     });

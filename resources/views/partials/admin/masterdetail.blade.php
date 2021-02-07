@@ -23,10 +23,12 @@
     <script type="text/javascript" src={{asset("/assets/plugins/jqwidgets/jqxgrid.columnsresize.js")}}></script>
     <script type="text/javascript" src={{asset("/assets/plugins/jqwidgets/jqxgrid.filter.js")}}></script>
     <script type="text/javascript" src={{asset("/assets/plugins/jqwidgets/jqxgrid.grouping.js")}}></script>
+    <script type="text/javascript" src={{asset("/assets/plugins/jqwidgets/jqxgrid.aggregates.js")}}></script>
     <script type="text/javascript" src={{asset("/assets/plugins/jqwidgets/jqxfileupload.js")}}></script>
     <script type="text/javascript" src={{asset("/assets/plugins/jqwidgets/jqxcombobox.js")}}></script>
     <script type="text/javascript" src={{asset("/assets/plugins/jqwidgets/jqxdropdownbutton.js")}}></script>
     <script type="text/javascript" src={{asset("/assets/plugins/jqwidgets/jqxtree.js")}}></script>
+    
     
 
   	<script type="text/javascript" src={{asset("/assets/scripts/modules/framework/masterdetail.js")}}></script>
@@ -192,22 +194,23 @@
         
             <div  class="d-inline-block dropdown justdetail invisible molactionbutton" >
     
-                <button id = 'molactionbutton' type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="btn-shadow dropdown-toggle btn btn-info">
+                <button id = 'molactionbutton' type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" 
+                        class="btn-shadow dropdown-toggle btn btn-info">
 
                 
-                    <span class="btn-icon-wrapper pr-2 opacity-7">
+                    <!-- <span class="btn-icon-wrapper pr-2 opacity-7">
                         <i class="fa fa-angle-double-right fa-w-20"></i>
-                    </span>
+                    </span> -->
                     {{trans('general.actions')}}
                 </button>
                 
                 <div tabindex="-1" role="menu" aria-hidden="true" class="dropdown-menu dropdown-menu-right">
                     <ul id="ul-actions" class="nav flex-column">
                         @stack('actions')
-                        <hr/>
+                      
                         <li class="nav-item" id="deletemasteraction">
                             <a class="nav-link" onclick="DeleteDocument()">
-                                <i class="fa fa-angle-down"></i>&nbsp
+                               
                                 <span>
                                         {{trans('general.deletedocument')}}
                                 </span>

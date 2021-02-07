@@ -45,7 +45,9 @@
                         </div>
                         <div class="h-100 d-flex bg-white justify-content-center align-items-center col-md-12 col-lg-4 bg-premium-dark " style="color:silver;">
                             <div class="mx-auto app-login-box col-sm-12 col-md-10 col-lg-4">
-                                    <div class="logo" style="margin-bottom:100px;">
+                                    <div class="logo" style="    margin-bottom: 100px;
+                                                        margin-left: 30px;
+                                                        margin-right: 30px;">
                                         <a href="{{url('/')}}"> <img src="{{url('assets/images/logo_molland.svg')}}"  height="100%" width="100%" > </a>
 
                                 </div>

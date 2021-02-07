@@ -1016,7 +1016,12 @@
 				selectionmode: selectMasterMuliple? 'multiplerowsextended':'singlerow',
 				showtoolbar: false,
 				theme: 'energyblue',
-
+				
+				showgroupaggregates: true,
+                showstatusbar: true,
+                showaggregates: true,
+				statusbarheight: 25,
+				
 				columns: listdatacolumns,
 			});
 
@@ -1316,6 +1321,13 @@
 				do_resize($(this)[0]);
 	
 			}));
+
+
+			if (!((filtersource != null) && (filtersource.length > 0))){
+				$('#customfilter').hide();
+			}
+
+
 
 
 		});

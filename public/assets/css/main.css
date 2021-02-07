@@ -42885,6 +42885,10 @@ span.multiselect-native-select select {
 	}
 }
 
+.tab-pane {
+	padding: 20px;
+}
+
 @media (max-width: 991.98px) {
 	.app-main {
 		display: block
@@ -43040,7 +43044,7 @@ span.multiselect-native-select select {
 		display: block
 	}
 	.app-page-title .page-title-actions {
-		margin: 15px auto 0
+		margin: 5px auto 0
 	}
 	.app-page-title .page-title-actions .breadcrumb-item,
 	.app-page-title .page-title-actions .breadcrumb,
@@ -43072,6 +43076,9 @@ span.multiselect-native-select select {
 	}
 	.page-title-head {
 		display: block
+	}
+	.jqx-widget-content {
+		font-size: 11px;
 	}
 }
 
@@ -43115,8 +43122,10 @@ span.multiselect-native-select select {
 
 @media (max-width: 767.98px) {
 	.app-main .app-main__inner {
-		padding: 15px 15px 0
+		padding: 2px 2px 2px
 	}
+
+
 	.mbg-3,
 	body .card.mb-3 {
 		margin-bottom: 15px !important
@@ -43191,6 +43200,15 @@ span.multiselect-native-select select {
 	}
 	.slick-slider-sm .slick-slider .slick-next {
 		right: 15px
+	}
+	.tab-pane {
+		padding: 2px;
+	}
+	.app-page-title {
+		padding-top: 14px;
+		padding-right: 10px;
+		padding-bottom: 5px;
+		padding-left: 10px;
 	}
 }
 
@@ -43565,9 +43583,7 @@ span.multiselect-native-select select {
 	display: none;
 }
 
-.tab-pane {
-	padding: 20px;
-}
+
 
 #modalajax {
 	position: absolute;
@@ -43696,12 +43712,7 @@ span.multiselect-native-select select {
 	.btn {
 		font-size: 0.8rem;
 	}
-	.app-page-title {
-		padding-top: 10px;
-		padding-right: 10px;
-		padding-bottom: 10px;
-		padding-left: 10px;
-	}
+
 	.card-body {
 		padding-top: 10px;
 		padding-right: 10px;

@@ -31,8 +31,8 @@ class BObject{
 
 
     protected $OrganizationId = 0;
-    public $MasterItemSelect = 'bb';
-    public $MasterSelect = 'nn';
+    public $MasterItemSelect = '';
+    public $MasterSelect = '';
     public $MasterInsert = '';
     public $MasterUpdate = '';
     public $MasterDelete = '';
@@ -44,7 +44,7 @@ class BObject{
     public $MasterKeyIsNew = true; // if true get the new item as " select LAST_INSERT_ID() as ItemId" else get the MasteKeyFieldValue
 
     // overrideable functions for sql statements
-    public function GetMasterSelect($OrganizationId, $filter){
+    public function GetMasterSelect($OrganizationId, $filter, $others){
         return '';
     }
     public function GetMasterItemSelect(){
@@ -85,7 +85,7 @@ class BObject{
 
     public function getMasterList($OrganizationId, $filter, $others){
         
-        $sql = $this->GetMasterSelect($OrganizationId, $filter);
+        $sql = $this->GetMasterSelect($OrganizationId, $filter, $others);
        
         while (is_array($filter))
             $filter = $filter[1]; // un bug undeva
@@ -95,7 +95,7 @@ class BObject{
                 $filter = " and ".$filter;
             }
 
-        $PersonId =  $others['PersonId'] ;   
+            $PersonId =  $others['PersonId'] ;   
 
             $sql = str_replace( array(":filter", ":_OrganizationId_", ":_PersonId_") ,array("{$filter}", "{$OrganizationId}", "$PersonId"), $this->MasterSelect);
         }

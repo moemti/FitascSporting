@@ -25,4 +25,10 @@ class Training25Controller extends MasterController
         return ['colectors'=>$this->BObject()->getCollectors(), 'persons' => Dictionary::getPersons($OrganizationId)];
     }
 
+    public function getPersonInfo(Request $request){
+
+        $PersonId = $request['PersonId'];
+        return $this->BObject()->getPersonInfo($PersonId);
+    }
+
 }

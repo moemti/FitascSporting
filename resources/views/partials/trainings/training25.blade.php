@@ -50,10 +50,7 @@
                 <input name="IsPaid" id="IsPaid"  type="checkbox" class="form-control tosave"  ></div>
             </div>
 
-            <div class="col-md-1">
-                <div class="position-relative form-group"><label for="IsPaid">Clay</label>
-                <input name="IsClay" id="IsClay"  type="checkbox" class="form-control tosave"  ></div>
-            </div>
+            
 
             <div class="col-md-4">
                  <label for="ColectorId">Paid to</label>
