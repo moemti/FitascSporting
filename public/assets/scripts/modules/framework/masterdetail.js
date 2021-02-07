@@ -1016,7 +1016,7 @@
 				selectionmode: selectMasterMuliple? 'multiplerowsextended':'singlerow',
 				showtoolbar: false,
 				theme: 'energyblue',
-				
+
 				showgroupaggregates: true,
                 showstatusbar: true,
                 showaggregates: true,
@@ -1251,6 +1251,33 @@
 			textbox.rows = maxrows;
 		else 
 			textbox.rows = rows;
+	}
+
+
+	function goBack(){
+
+		var rowindex = $('#masterlist').jqxGrid('getselectedrowindex');
+		if (rowindex == 0) 
+			return;
+		$('#masterlist').jqxGrid('selectrow', rowindex - 1);
+
+		if (IsDetail){
+			goDetail();
+		}
+
+	}
+
+	function goNext(){
+		var rows = $('#masterlist').jqxGrid('getrows');
+	
+		var rowindex = $('#masterlist').jqxGrid('getselectedrowindex');
+		if (rows.length-1 == rowindex)
+			return;
+
+		$('#masterlist').jqxGrid('selectrow', rowindex + 1);
+		if (IsDetail){
+			goDetail();
+		}
 	}
 
 ////////////

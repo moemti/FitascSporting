@@ -188,6 +188,19 @@
                     </a>
                 </li>
             </ul>
+
+            <ul class="body-tabs body-tabs-layout tabs-animated body-tabs-animated nav">
+                <li class="nav-item">
+                    <a role="tab" class="nav-link mol-nav-link " id="tab-back"  href="#" onclick="goBack()">
+                        <span><<</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a role="tab" class="nav-link mol-nav-link " id="tab-next" href="#" onclick="goNext()">
+                        <span>>></span>
+                    </a>
+                </li>
+            </ul>
         
             
         
