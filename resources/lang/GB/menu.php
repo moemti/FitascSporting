@@ -59,7 +59,7 @@ return [
     'moduleconfigurationvalues' => 'Module configurations',
     'moduleconfiguration'=> 'Configuration types',
     'trainings'=>'Trainings',
-    'mytrainings'=>'All my trainings',
+    'mytrainings'=>'My trainings',
     'training25'=>'Club 25 training'
     
 ];

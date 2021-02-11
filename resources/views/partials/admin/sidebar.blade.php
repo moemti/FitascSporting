@@ -90,8 +90,8 @@ echo "; </script>"
                             
                             @if (session("PersonId") > 0)
                             <li class="app-sidebar__heading"> {{trans('menu.trainings')}}</li>
-                                @Menu(trainings, menu.mytrainings,,)
-                                @Menu(training25s, menu.training25,,)
+                                @Menu(trainings, menu.mytrainings,mytrainings,)
+                                @Menu(training25s, menu.training25,training25,)
                           
 
 
@@ -110,9 +110,9 @@ echo "; </script>"
                                                 <i class="metismenu-state-icon pe-7s-angle-down caret-left"></i>
                                             </a>
                                             <ul>
-                                                @Menu(roles, menu.roles,,)
-                                                @Menu(persons, menu.persons,,)
-                                                @Menu(users, menu.users,,)
+                                                @Menu(roles, menu.roles,roles,)
+                                                @Menu(persons, menu.persons,persons,)
+                                                @Menu(users, menu.users,users,)
                                             </ul>
                                         </li>
                                         <li>
@@ -122,7 +122,7 @@ echo "; </script>"
                                                 <i class="metismenu-state-icon pe-7s-angle-down caret-left"></i>
                                             </a>
                                             <ul>
-                                                @Menu(permissions, menu.permissions,,)
+                                                @Menu(permissions, menu.permissions,permissions,)
                                               
                                             </ul>
                                         </li>
@@ -144,15 +144,15 @@ echo "; </script>"
                                         <i class="metismenu-state-icon pe-7s-angle-down caret-left"></i>
                                     </a>
                                     <ul>
-                                        @Menu(reportcategories, menu.reportcategories,,)
-                                        @Menu(reportdefinitions, menu.reportdefinitions,,)
+                                        @Menu(reportcategories, menu.reportcategories,reportcategories,)
+                                        @Menu(reportdefinitions, menu.reportdefinitions,reportdefinitions,)
                                        
                                     </ul>
 
                                  @endif  
                                 </li>
 
-                                @Menu(reportsrun, menu.reportsrun,,)
+                                @Menu(reportsrun, menu.reportsrun,reportsrun,)
                            
                             @endif
 

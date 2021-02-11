@@ -27,7 +27,8 @@ class BObject{
     public function CustomFilters(){ return [];}  // predefinited filters
     public function FilterSource(){ return [];}  // filter source for custom filters
     public function DefaultMasterValues(){ return [];} // default values
-
+    public function MasterFixedFields(){ return [];} // for checking that this fields to be not altered
+    public function DetailFixedFields(){ return [];} // for checking that this fields to be not altered 
 
 
     protected $OrganizationId = 0;
@@ -112,7 +113,15 @@ class BObject{
             $sql = str_replace( array(":".$MasterKey) ,array("{$ItemId}"), $this->MasterItemSelect) ;
         }
 
-        return DB::select($sql);
+        $r = DB::select($sql);
+
+        foreach($this->MasterFixedFields() as $field){
+            session(["LAST_".$field => $r[0]->$field]);
+                
+        }
+
+
+        return $r;
 
     }
 
@@ -199,7 +208,18 @@ class BObject{
     public function afterSaveInTran($ItemId, $fields){}
     public function afterSave($ItemId, $fields){}
     public function beforeSaveInTran($fields){}
-    public function beforeSave($fields){}
+    private function validatebeforeSave($fields){
+        foreach($this->MasterFixedFields() as $field){
+            if($fields[$field] <> session("LAST_".$field))
+                throw new \Exception('Altered');
+        }
+
+
+    }
+
+    public function beforeSave($fields){
+        $this->validatebeforeSave($fields);
+    }
 
     public function updateDetails($delta, $MasterId, $master){
 
@@ -229,7 +249,17 @@ class BObject{
         $sql = $this->GetMasterDelete($ItemId);
         if ($sql == '')
             $sql = str_replace( array(":".$MasterKey) ,array("{$ItemId}"), $this->MasterDelete) ;
-        DB::unprepared($sql);
+        
+        DB::beginTransaction(); 
+        try{   
+            DB::unprepared($sql);
+        
+            DB::commit();
+        }
+        catch(\Exception $e){
+                DB::rollBack();
+                throw $e;
+        }
     }
 
 

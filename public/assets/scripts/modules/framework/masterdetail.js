@@ -1259,6 +1259,8 @@
 		var rowindex = $('#masterlist').jqxGrid('getselectedrowindex');
 		if (rowindex == 0) 
 			return;
+
+		$('#masterlist').jqxGrid('clearselection');	
 		$('#masterlist').jqxGrid('selectrow', rowindex - 1);
 
 		if (IsDetail){
@@ -1271,9 +1273,9 @@
 		var rows = $('#masterlist').jqxGrid('getrows');
 	
 		var rowindex = $('#masterlist').jqxGrid('getselectedrowindex');
-		if (rows.length-1 == rowindex)
+		if (rows.length - 1 == rowindex)
 			return;
-
+		$('#masterlist').jqxGrid('clearselection');
 		$('#masterlist').jqxGrid('selectrow', rowindex + 1);
 		if (IsDetail){
 			goDetail();

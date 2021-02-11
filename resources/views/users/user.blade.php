@@ -1,3 +1,5 @@
+@permissionreturn("users")
+
 @extends('layouts.admin')
 
 @push('include_content')

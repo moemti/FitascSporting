@@ -1,3 +1,4 @@
+@permissionreturn("persons")
 @extends('layouts.admin')
 
 @push('include_content')

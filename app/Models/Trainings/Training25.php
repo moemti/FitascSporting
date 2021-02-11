@@ -10,6 +10,11 @@ class Training25 extends BObject{
         return 'ClubTransactionId';
     } 
 
+    public function MasterFixedFields(){ return ['Price'];} // for check not to be altered
+    public function DetailFixedFields(){ return [];} // for check not to be altered  
+
+
+
     public function CustomFilters(){ 
         $PersonId = session('PersonId');
 

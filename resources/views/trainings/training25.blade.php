@@ -1,3 +1,5 @@
+@permissionreturn("training25")
+
 @extends('layouts.admin')
 
 
