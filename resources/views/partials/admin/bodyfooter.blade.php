@@ -8,3 +8,4 @@
         
         @include('partials.admin.message')
         @include('partials.admin.confirm')
+        @include('partials.admin.confirmsave')

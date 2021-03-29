@@ -32,6 +32,9 @@ class BObject{
 
 
     protected $OrganizationId = 0;
+    protected $IsInsertUnprepared = false; // true if multiple statements etc
+    protected $IsUpdateUnprepared = false; // true if multiple statements etc
+    protected $IsDeleteUnprepared = false; // true if multiple statements etc
     public $MasterItemSelect = '';
     public $MasterSelect = '';
     public $MasterInsert = '';
@@ -45,7 +48,7 @@ class BObject{
     public $MasterKeyIsNew = true; // if true get the new item as " select LAST_INSERT_ID() as ItemId" else get the MasteKeyFieldValue
 
     // overrideable functions for sql statements
-    public function GetMasterSelect($OrganizationId, $filter, $others){
+    public function GetMasterSelect($OrganizationId, $filter, $others = null){
         return '';
     }
     public function GetMasterItemSelect(){
@@ -84,7 +87,7 @@ class BObject{
     }
 
 
-    public function getMasterList($OrganizationId, $filter, $others){
+    public function getMasterList($OrganizationId, $filter, $others = null){
         
         $sql = $this->GetMasterSelect($OrganizationId, $filter, $others);
        
@@ -131,6 +134,7 @@ class BObject{
 
         
         $this->beforeSave($fields);
+        
         try {
 
             DB::beginTransaction();
@@ -154,9 +158,10 @@ class BObject{
                     
                 }       
 
-               // DB::unprepared($sql);
-                    // sometimes select don t work
-                DB::select($sql);
+                if ($this->IsInsertUnprepared)    
+                    DB::unprepared($sql);
+                else
+                    DB::select($sql);
 
                 if ($this->MasterKeyIsNew){
                     $sql = " select LAST_INSERT_ID() as ItemId";
@@ -183,8 +188,11 @@ class BObject{
                   
                 } 
 
-
-                DB::select($sql);
+                if ($this->IsUpdateUnprepared)    
+                    DB::unprepared($sql);
+                else
+                    DB::select($sql);
+                    
               
             }
             if (array_key_exists('delta', $fields)) 
@@ -209,9 +217,15 @@ class BObject{
     public function afterSave($ItemId, $fields){}
     public function beforeSaveInTran($fields){}
     private function validatebeforeSave($fields){
+
         foreach($this->MasterFixedFields() as $field){
-            if($fields[$field] <> session("LAST_".$field))
-                throw new \Exception('Altered');
+            $new = $fields[$field];
+            $old =  session("LAST_".$field);
+
+            if(isset($old) && $old != $new){
+
+                throw new \Exception("Altered $field: $old  <> $new");
+            }
         }
 
 

@@ -1,5 +1,6 @@
 @stack('header_start')
  <div class="app-header header-shadow">
+    
         <div class="app-header__logo">
             <div class="logo-src">
                 <div class="logo" style="margin-top:-100px;margin-top: -30px;">
@@ -36,6 +37,9 @@
                 </button>
             </span>
         </div>
+
+   
+
         <div class="app-header__content">
             <div>
                 <button class="mb-0 ml-4 mr-2 btn btn-gradient-info active">@session(organization)</button>

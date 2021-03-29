@@ -46,7 +46,7 @@ echo "; </script>"
                     <div class="app-sidebar__inner">
                         <ul class="vertical-nav-menu">
 
-                            
+                          <!--  
                             <li>
                                 <div id= 'searchedit'class="search-wrapper">
                                     <div class="input-holder">
@@ -81,7 +81,7 @@ echo "; </script>"
                              
                                 </ul>
                             </li>
-
+                            -->
                             <li class="app-sidebar__heading"> 
                                     <i class="metismenu-icon pe-7s-keypad"></i>
                                     @MainMenu(welcome, menu.dashboard)
@@ -92,11 +92,18 @@ echo "; </script>"
                             <li class="app-sidebar__heading"> {{trans('menu.trainings')}}</li>
                                 @Menu(trainings, menu.mytrainings,mytrainings,)
                                 @Menu(training25s, menu.training25,training25,)
-                          
-
 
                             @endif
                             
+                            @if (session("PersonId") > 0)
+                            <li class="app-sidebar__heading"> {{trans('menu.finance')}}</li>
+                              
+                          
+                                @Menu(training25finance, menu.training25finance,training25finance, )
+
+
+                            @endif
+
 
                             @if (session("IsSuperUser") == 1)
 

@@ -9,6 +9,7 @@ use App\Http\Controllers\Controller;
 
 use App\Models\ClientDocs\ClientOffer;
 use App\Models\Client\Client;
+use App\Models\Users\Person;
 use App\Models\Document\Document;
 use App\Http\Controllers\ClientOfferController;
 use App\Http\Controllers\ClientContractController;
@@ -38,13 +39,33 @@ class DashboardController extends Controller
     public function welcome(Request $request){
 
         $OrganizationId = session('organizationId');
+        $PersonId = session('PersonId');
+        $param = null;
 
-        $oc = [];//$this->getOfferCounts($OrganizationId);
+        $Category = "";
+        $Percent = "";
+        $CategoryLast = "";
+        $PercentLast = "";
+        $Price = 25;
+      
+
+        if ($PersonId != null)
+            $param = Person::getPersonParamsAll($PersonId);
+        
+        if ($param != null){
+            $Category = $param->Category;
+            $Percent = $param->Percent;
+            $CategoryLast = $param->CategoryLast;
+            $PercentLast = $param->PercentLast;
+            $Price = $param->Price;
+        }
+
+        $competition = ['personparam' => $param];//$this->getOfferCounts($OrganizationId);
         $cc = [];//$this->getContractCounts($OrganizationId);
         $ic = [];// $this->getInvoiceCounts($OrganizationId);
 
 
-        return view('dashboards/welcome', ['clientoffercounts'=>$oc, 'clientcontractcounts' => $cc, 'clientinvoicecounts' => $ic]);
+        return view('dashboards/welcome', ['competition'=>$competition, 'clientcontractcounts' => $cc, 'clientinvoicecounts' => $ic]);
     }
 
 

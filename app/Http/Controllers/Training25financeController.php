@@ -12,13 +12,13 @@ use App\Models\Dictionaries\Dictionary;
 
 
 
-class Training25Controller extends MasterController
+class Training25financeController extends MasterController
 {
-    public $BObject = 'App\Models\Trainings\Training25';
+    public $BObject = 'App\Models\Trainings\Training25finance';
 
-    public $views = ['master'=>'trainings/training25'];
+    public $views = ['master'=>'trainings/training25finance'];
 
-    public $Training25Code = 'TRAINING25';
+    public $Training25financeCode = 'TRAINING25FINANCE';
 
     public function getDictionaries(){
         $OrganizationId = session('organizationId');

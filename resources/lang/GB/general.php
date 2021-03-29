@@ -25,6 +25,9 @@ return [
     'Exchangerates' =>'BNR Exchange rates',
     'ExchangeratesDescription' =>'',
     'downloadexchange' =>'Download from BNR',
-    'validate' => 'Validate'
+    'validate' => 'Validate',
+    'Cancel' => "Don't_save",
+    'Save' => 'Save',
+    'Stay' => 'Stay_in_page'
 
 ];

@@ -60,6 +60,8 @@ return [
     'moduleconfiguration'=> 'Configuration types',
     'trainings'=>'Trainings',
     'mytrainings'=>'My trainings',
-    'training25'=>'Club 25 training'
+    'training25'=>'Club 25 training',
+    'training25finance'=>'Club 25 finance',
+    'finance'=>'Finance'
     
 ];

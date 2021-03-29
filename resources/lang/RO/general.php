@@ -20,6 +20,9 @@ return [
     'receivedresponse' => 'Primit raspuns',
     'doversion' => 'Creaza versiune',
     'description' => 'Descriere',
-    'deletedocument' => 'Sterge document'
+    'deletedocument' => 'Sterge document',
+    'Cancel' => 'Anuleaza',
+    'Save' => 'Salveaza',
+    'Stay' => 'Stai'
 
 ];

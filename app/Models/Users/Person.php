@@ -6,6 +6,9 @@ use App\Models\BObject;
 
 class Person extends BObject{
 
+    protected $IsInsertUnprepared = true; // true if multiple statements etc
+    protected $IsUpdateUnprepared = true; // true if multiple statements etc
+    protected $IsDeleteUnprepared = true; // true if multiple statements etc
   
     public function MasterKeyField(){
         return 'PersonId';
@@ -17,39 +20,51 @@ class Person extends BObject{
 
 
     public $MasterSelect = 
-                "SELECT p.PersonId, p.Name, p.Email, GROUP_CONCAT(f.Name SEPARATOR ', ') as Role 
+                "SELECT p.PersonId, p.Name, p.Email, GROUP_CONCAT(f.Name SEPARATOR ', ') as Role , p.NickName
                 from person p
                 left join personxrole x on x.PersonId = p.PersonId
                 left join role f on f.RoleId = x.RoleId
                 where p.OrganizationId = :_OrganizationId_ :filter
-                group by  p.PersonId, p.Name, p.Email
+                group by  p.PersonId, p.Name, p.Email, p.NickName
                 order by p.Name"  ;
 
-    public $MasterItemSelect = "SELECT p.PersonId, p.Name, p.Email, GROUP_CONCAT(f.Name SEPARATOR ', ') as Role 
+    public $MasterItemSelect = "SELECT p.PersonId, p.Name, p.Email, GROUP_CONCAT(f.Name SEPARATOR ', ') as Role , p.NickName
                 from person p
                 left join personxrole x on x.PersonId = p.PersonId
                 left join role f on f.RoleId = x.RoleId
                 where p.PersonId = :PersonId
-                group by  p.PersonId, p.Name, p.Email"  ;
+                group by  p.PersonId, p.Name, p.Email, p.NickName"  ;
                                         
 
-    public $MasterInsert = "INSERT INTO person( OrganizationId, Name, Email)
-                                values (:_OrganizationId_, ':Name', ':Email')";         
+    public $MasterInsert = "INSERT INTO person( OrganizationId, Name, Email, NickName)
+                                values (:_OrganizationId_, ':Name', ':Email', ':NickName');
+
+
+                            
+                                ";         
    
 
     public $MasterUpdate = "UPDATE `person` SET
-                        `Email`= ':Email', `Name`=':Name'
-                        WHERE PersonId = :PersonId";
+                        `Email`= ':Email', `Name`=':Name', NickName = ':NickName'
+                        WHERE PersonId = :PersonId;
+                        
+                        update personparam set Price = :Price 
+                        where PersonId = :PersonId;
+                        ";
 
-    public $MasterDelete = "delete from person
+    public $MasterDelete = "
+                delete from personxparam
+                where PersonId = :PersonId;
+
+                delete from person
             where PersonId = :PersonId"  ;
 
 
-    //--------
+    //-------- details -------------
 
 
     
-  // punem old si new pentru a sti care a fost OLD la update/delete si NEW pentru insert/update
+    // punem old si new pentru a sti care a fost OLD la update/delete si NEW pentru insert/update
     public $DetailSelect = "SELECT x.PersonId, f.RoleId, f.Name, f.RoleId as OLD_RoleId, f.RoleId as NEW_RoleId
                 from  personxrole x 
                 inner join role f on f.RoleId = x.RoleId
@@ -74,5 +89,114 @@ class Person extends BObject{
         return DB::select($sql);
         
     }
+
+    // parametrii
+
+    public function getMasterOthers($ItemId, $OrganizationId){
+        return $this->getPersonParams($ItemId);
+    }
+
+    public function getParams($TableUses){
+        $sql = "select ParamId, Name, Description, Type 
+        from param
+        where TableUses = '{$TableUses}' 
+        order by Name"  ;
+
+    return DB::select($sql); 
+    }
+    
+    public function getPersonParams($PersonId){
+      
+            $sql = "SELECT pp.*, p.Name as ParamName FROM personxparam pp inner join param p on p.ParamId = pp.ParamId
+                    where PersonId = {$PersonId} " ;
+            return DB::select($sql);
+    }
+    
+    public function afterSaveInTran($ItemId, $fields){
+         
+        if (!array_key_exists ('deltaOthers1', $fields))
+            return;
+
+
+        $Params = $fields['deltaOthers1'];
+        if (is_array($Params)){
+            foreach($Params as $param){
+
+             
+
+                $PersonId = arrayValue($param, 'PersonId');
+                if ($PersonId =='')
+                    $PersonId = $ItemId;
+
+                $ParamId = arrayValue($param, 'ParamId');
+                $StartDate = arrayValue($param, 'StartDate', 'date');
+                $EndDate = arrayValue($param, 'EndDate','date');
+                $Value = arrayValue($param, 'Value', 'string');
+                $PersonXParamId = arrayValue($param, 'PersonXParamId');
+ 
+
+                if ($param['Operation'] == 'I'){
+
+                    $sql = "INSERT INTO personxparam
+                            (PersonId, ParamId, StartDate,  EndDate, Value)
+                            VALUES({$PersonId}, {$ParamId}, {$StartDate}, {$EndDate},{$Value})";
+                };
+
+                if ($param['Operation'] == 'U'){
+
+                    $sql = "UPDATE personxparam
+                                SET ParamId={$ParamId}, StartDate = {$StartDate}, EndDate={$EndDate}, 
+                                Value={$Value}
+                    WHERE PersonXParamId = {$PersonXParamId}";
+                };
+
+                if ($param['Operation'] == 'D'){
+
+                    $sql = "delete from personxparam
+                    WHERE PersonXParamId = {$PersonXParamId}";
+                };
+
+                DB::select($sql);
+            }
+        }
+    }
+    
+    //====================================================================================
+
+    static public function getPersonParamsAll($PersonId){
+
+
+
+        $sql = "
+        SELECT Cat.Value as Category , Price.Value as Price, 0 as Percent, 0 as PercentLast, '' as CategoryLast, Clay.Value, Clay.Cant, Value_Y, Cant_Y
+        from person pe
+
+        left join 
+            (select pp.Value, pp.PersonId from personxparam pp
+            inner join param p on p.ParamId = pp.ParamId and p.Name = 'ShooterCategory' and now() between pp.StartDate and ifnull(pp.EndDate, '21000101')
+            )as Cat  on Cat.PersonId = pe.PersonId 
+                
+        left join 
+            (select pp.Value, pp.PersonId from personxparam pp
+            inner join param p on p.ParamId = pp.ParamId and p.Name = 'Price25' and now() between pp.StartDate and ifnull(pp.EndDate, '21000101')
+            )as Price  on Price.PersonId = pe.PersonId 
+               
+               
+         left join 
+            (select sum(Price*Qty) as Value , sum(Qty) as Cant, PersonId , sum(Price*Qty * case when year(Date) = year(now()) then 1 else 0 end ) Value_Y , sum(Qty * case when year(Date) = year(now()) then 1 else 0 end ) as Cant_Y
+             from clubtransaction t where IsClay = 1 group by PersonId
+            )as Clay  on Clay.PersonId = pe.PersonId 
+                      
+            where pe.PersonId = {$PersonId} 
+                ";
+
+
+        $r = DB::select($sql);
+        if (count($r) > 0)
+            return $r[0];
+        else
+            return null ;
+}
+    
 
 }

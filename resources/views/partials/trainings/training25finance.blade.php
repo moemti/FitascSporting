@@ -1,14 +1,14 @@
 @extends('partials.admin.masterdetail')
 
-    <script type="text/javascript" src={{asset("/assets/scripts/modules/trainings/training25.js")}}></script>
+    <script type="text/javascript" src={{asset("/assets/scripts/modules/trainings/training25finance.js")}}></script>
     
 	@push('title')
-		{{trans('pm.training25title')}}
+		{{trans('pm.training25financetitle')}}
 	@endpush
 	
 
 	@push('Description')
-		{{trans('pm.training25Description')}}
+		{{trans('pm.training25financeDescription')}}
 	@endpush
     
     
@@ -22,15 +22,21 @@
      
         <div class="form-row">
 		    <div class="col-md-4">
-                 <label for="PersonId">Person</label>
-                 <select name="PersonId" id="PersonId" class="form-control" disabled  >
+                 <label for="ColectorId">Colector</label>
+                 <select name="ColectorId" id="ColectorId" class="form-control" disabled  >
                     <option value=""></option>
-                        @foreach($persons as $r)
+                        @foreach($colectors as $r)
                             <option value="{{$r->PersonId}}">{{$r->Name}}</option>
                         @endforeach
                     </select>
             </div>
+
+            <div class="col-md-1">
+                <div class="position-relative form-group"><label for="IsClay">Clay</label>
+                <input name="IsClay" id="IsClay"  type="checkbox" class="form-control" onclick="return false;" ></div>
+            </div>
         </div>
+
 		
 				
 		<div class="form-row">
@@ -38,14 +44,11 @@
                 <div class="position-relative form-group"><label for="Date">Date</label>
                 <input name="Date" id="Date" type="date" class="form-control tosave" required ></div>
             </div>
-            <div class="col-md-1">
-                <div class="position-relative form-group"><label for="Price">Price</label>
-                <input name="Price" id="Price" type="number" class="form-control tosave" required disabled></div>
+            <div class="col-md-3">
+                <div class="position-relative form-group"><label for="Price">Value</label>
+                <input name="Price" id="Price" type="number" class="form-control tosave" required ></div>
             </div>
-            <div class="col-md-2">
-                <div class="position-relative form-group"><label for="Qty">Quantity</label>
-                <input name="Qty" id="Qty" type="datnumbere" class="form-control tosave" required ></div>
-            </div>
+  
 
  
             <div class="col-md-1">
@@ -53,13 +56,15 @@
                 <input name="IsPaid" id="IsPaid"  type="checkbox" class="form-control tosave"  ></div>
             </div>
 
+      
+
             
 
             <div class="col-md-4">
-                 <label for="ColectorId">Paid to</label>
-                 <select name="ColectorId" id="ColectorId" class="form-control"  >
+                 <label for="PersonId">Peceived from </label>
+                 <select name="PersonId" id="PersonId" class="form-control"  >
                     <option value=""></option>
-                        @foreach($colectors as $r)
+                        @foreach($persons as $r)
                             <option value="{{$r->PersonId}}">{{$r->Name}}</option>
                         @endforeach
                     </select>

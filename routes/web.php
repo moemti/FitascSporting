@@ -146,6 +146,15 @@ Route::get('/view-clear', function() {
                 Route::post('getPersonInfo', 'Training25Controller@getPersonInfo');
                 
 
+                 //============================= 25 finance ======================================
+                 Route::get('training25finance', 'Training25financeController@getList');
+                 Route::post('savetraining25financeajax', 'Training25financeController@saveitemajax');
+                 Route::post('gettraining25financesajax', 'Training25financeController@getitemsajax');
+                 Route::post('gettraining25financeajax', 'Training25financeController@getitemajax');
+                 Route::post('deletetraining25financeajax', 'Training25financeController@deleteitemajax');
+                 Route::post('getPersonInfo', 'Training25financeController@getPersonInfo');
+                 
+
             });
     });
 });

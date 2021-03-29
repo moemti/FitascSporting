@@ -14,7 +14,7 @@
         if (!isset($field) || $field == "")
             return 'null';
         else 
-            return date('ymd',strtotime($field));
+            return "'".date('Ymd',strtotime($field))."'";
         
         
     }

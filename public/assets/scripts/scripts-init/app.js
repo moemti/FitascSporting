@@ -559,6 +559,30 @@ function ShowError(msg) {
           });
       };
 
+      function confirmSave (message, callbackSave, callbackStay, callbackCancel, hasoutput = false) {
+        $("#confirmsavedialog_message").text(message);
+        $("#btnConfirmSaveSaveModal").prop('onclick',null).off('click');
+        $("#btnConfirmSaveSaveModal").click(callbackSave);
+        $("#btnConfirmSaveStayModal").prop('onclick',null).off('click');
+        $("#btnConfirmSaveStayModal").click(callbackStay);
+        $("#btnConfirmSaveCancelModal").prop('onclick',null).off('click');
+        $("#btnConfirmSaveCancelModal").click(callbackCancel);
+
+
+        $("#confirmsaveinput" ).val("");
+
+        if (!hasoutput)
+            $("#confirmsaveinputdiv").addClass("invisible")
+           else
+               $("#confirmsaveinputdiv").removeClass("invisible")
+
+
+        $("#confirmsavedialog").modal({
+            backdrop: 'static',
+            keyboard: false
+        });
+    };
+
       function setLanguage(lang){
           createCookie('lang-symbol', lang, 20000);
           location.reload();

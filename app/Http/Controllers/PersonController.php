@@ -21,7 +21,7 @@ class PersonController extends MasterController
 
     public function getDictionaries(){
         $OrganizationId = session('organizationId');
-        return ['roles' => $this->BObject()->getRoles($OrganizationId)];
+        return ['roles' => $this->BObject()->getRoles($OrganizationId), 'params' => $this->BObject()->getParams('personxparam')];
     }
 
 }

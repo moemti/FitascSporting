@@ -506,9 +506,23 @@
 			$('#DetailModal').modal('toggle') ;
 		}
 
+		function onSaveDetailModal(){
+			SubmitDetailModal();
+		}
+
+		function onCloseDetailModal(){
+			SaveUpdates();
+			$('#DetailModal').modal('toggle') ;
+		}
+
+
+		function onStayDetailModal(){
+
+		}
+
 		function CloseDetailModal(){
 			if ( $('#detailformmodal').isChanged() ){
-				confirm("Nu ati salvat modificarile! Doriti sa continuati?", onCloseDetailModal);
+				confirmSave("Nu ati salvat modificarile! Cum doriti sa continuati?", onSaveDetailModal, onStayDetailModal, onCloseDetailModal);
 			}
 			else
 				onCloseDetailModal()
@@ -649,11 +663,25 @@
 
 		//^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+		function saveDetailAndGoList(){
+			if (SaveUpdates())
+				doList();
+		}
+
+		function saveDetailAndDoNew(){
+			SaveUpdates(doNew);
+				
+		}
+
+		function stayDetail(){
+			
+		}
+
         function goList() {
            // check if the detail is modified end prevent to change to list
 
 			if ( DetailChanged() ){
-                confirm("Nu ati salvat modificarile! Doriti sa continuati?", doList);
+                confirmSave("Nu ati salvat modificarile! Cum doriti sa continuati?", saveDetailAndGoList, stayDetail, doList);
 
             }
 			else
@@ -709,7 +737,8 @@
 
         function addNew(){
         	if ( DetailChanged()){
-                confirm("Nu ati salvat modificarile! Doriti sa continuati?", doNew);
+				
+				confirmSave("Nu ati salvat modificarile! Cum doriti sa continuati?", saveDetailAndDoNew, stayDetail, doNew);
             }else
             	doNew();
         }
@@ -742,13 +771,24 @@
 		}
 
         function doNew(){
+			
         	doDetail();
 	       	$("#detailform").data("changed", false);
 	       	$("#detailform")[0].reset();
 	        $('#isnew').val("1");
+	
+			documentdetailsDB= [];// resetam
+			if (HasDetails){
+				PutDetails();
+			};
+
+
+			OnPutDetailOthers([]);
 
             putDefaultValues();
 			onDoNew();
+
+
 			$("#detailform").trackChanges();
 			
 			//$('#ul-actions').html("");
@@ -867,8 +907,9 @@
 			return true;
 		}
 
-		
-		function SaveUpdates(){
+		var fAfterSave = null;
+
+		function SaveUpdates(cAfterSave = null){
 
 
 			//punem sa se vada taburile ca sa poata valida
@@ -907,21 +948,26 @@
 
 			Data = RetrieveFields();
 
+			fAfterSave  = cAfterSave;
 			$.ajax({
 	            type: 'POST',
 
 	            url: baseUrl + urls.saveurl,
 	            data: Data,
 	            success: function (data) {
-	            	ShowSuccess('Salvat cu succes!');
+					ShowSuccess('Salvat cu succes!');
+					$('#isnew').val("0");
 		            OnSaveSucces(data);
 		    		RefreshMaster(LastFilter);
 		    		$("#detailform").resetChanges();
 		    		$(".tab-content" ).removeValidator();
-		    		AfterSave(data);
+					AfterSave(data);
+					if (fAfterSave )
+						fAfterSave();
 
 	            }
-	        });
+			});
+			return true;
 		}
 
 		function RefreshMasterWarning(filter, warning, input, caption){
@@ -978,6 +1024,7 @@
 
 					OnRefreshMaster(data);
 					AfterRefreshMaster(data);
+					DisableNavigation();
 
 
 				}
@@ -1040,6 +1087,13 @@
 
 
 			});
+
+			 $('#masterlist').on('rowselect', function (event) {
+
+			 	DisableNavigation(event.args.rowindex);
+
+
+			 });
 
 			$( "#detailform" ).submit(function( event ) {
 				$( "#detailform" ).valid();
@@ -1257,7 +1311,7 @@
 	function goBack(){
 
 		var rowindex = $('#masterlist').jqxGrid('getselectedrowindex');
-		if (rowindex == 0) 
+		if (rowindex <= 0) 
 			return;
 
 		$('#masterlist').jqxGrid('clearselection');	
@@ -1266,7 +1320,7 @@
 		if (IsDetail){
 			goDetail();
 		}
-
+		
 	}
 
 	function goNext(){
@@ -1280,6 +1334,33 @@
 		if (IsDetail){
 			goDetail();
 		}
+		
+	}
+
+	function DisableNavigation(ri = null){
+		var rows = $('#masterlist').jqxGrid('getrows');
+
+		var rowindex = -1;
+
+		if (ri !== null)
+			rowindex = ri
+		else
+			rowindex = $('#masterlist').jqxGrid('getselectedrowindex');
+
+		if (rowindex <= 0) {
+			$('#tab-back').parent().addClass("disabled");
+		}
+		else{
+			$('#tab-back').parent().removeClass("disabled");
+		}
+
+		if (rows.length - 1 == rowindex){
+			$('#tab-next').parent().addClass("disabled");
+		}
+		else{
+			$('#tab-next').parent().removeClass("disabled");
+		}
+			
 	}
 
 ////////////
@@ -1356,7 +1437,7 @@
 				$('#customfilter').hide();
 			}
 
-
+			DisableNavigation();
 
 
 		});

@@ -43820,3 +43820,7 @@ span.multiselect-native-select select {
 
 		width: 80%;
 	}
+
+	.nav-item.disabled>a::before{
+		background: gray!important;
+	}

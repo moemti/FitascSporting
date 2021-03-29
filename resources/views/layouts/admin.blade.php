@@ -41,7 +41,9 @@
             @include('partials.admin.themesettings')
 
 			<div class="app-main">
-                @include('partials.admin.sidebar')
+              
+                    @include('partials.admin.sidebar')
+              
     			<div class="app-main__outer">
 
     			 	@stack('include_content')

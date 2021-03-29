@@ -28,7 +28,8 @@
     <script type="text/javascript" src={{asset("/assets/plugins/jqwidgets/jqxcombobox.js")}}></script>
     <script type="text/javascript" src={{asset("/assets/plugins/jqwidgets/jqxdropdownbutton.js")}}></script>
     <script type="text/javascript" src={{asset("/assets/plugins/jqwidgets/jqxtree.js")}}></script>
-    
+
+   
     
 
   	<script type="text/javascript" src={{asset("/assets/scripts/modules/framework/masterdetail.js")}}></script>
