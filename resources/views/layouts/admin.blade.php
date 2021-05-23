@@ -36,6 +36,8 @@
 
             <!-- Site wrapper -->
 
+            @stack('permissions')
+
             @include('partials.admin.header')
 
             @include('partials.admin.themesettings')

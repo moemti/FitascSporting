@@ -210,4 +210,19 @@ class Dictionary{
             return $default;
     }
 
+    public static function getSports($OrganizationId){
+        $sql = "SELECT SportId, Name
+        FROM sport order by Name";
+        return DB::select($sql);
+    
+    }
+
+    public static function getRanges($OrganizationId){
+        $sql = "SELECT RangeId, Name
+        FROM `range` order by Name";
+        return DB::select($sql);
+    
+    }
+
+
 }

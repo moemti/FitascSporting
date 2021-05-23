@@ -84,10 +84,13 @@ class MasterController extends Controller
         $cfilters = $this->BObject()->CustomFilters();
         $FilterSource = $this->BObject()->FilterSource();
 
+
+        $Permissions = app(CommonDictionariesController::class)->GetDeniedModulePermissions($PersonId, $this->ModuleCode);
+
   
 
         return view($this->views['master'], array_merge(['masterlist' => $items, 'DefaultMasterValues' => $DefaultMasterValues,'CustomFilters' => $cfilters, 
-                'FilterSource'=> $FilterSource, 'MasterPrimaryKey'=>$MasterPrimayKey, 
+                'FilterSource'=> $FilterSource, 'MasterPrimaryKey'=>$MasterPrimayKey, 'DeniedPermissions' => $Permissions,
                 'DetailPrimaryKey'=>$DetailPrimaryKey, 'DefaultFilter'=>$filter], $this->getDictionaries()));
     }
 
@@ -126,10 +129,18 @@ class MasterController extends Controller
     }
 
     public function saveitemajax(Request $request){
+
+
+
         $fields = $request->all();
         $fields['_PersonId_'] = session('PersonId');
         $fields['_OrganizationId_'] = session('organizationId');
         $fields['_LocationId_'] = session('LocationId');
+
+        $Permissions = app(CommonDictionariesController::class)->GetDeniedModulePermissions(session('PersonId'), $this->ModuleCode);
+
+        if (in_array( 'Edit', $Permissions))
+            throw new \Exception('Beiiii bei');
 
         return [$this->BObject()->Save($fields)];
     }

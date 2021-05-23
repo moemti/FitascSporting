@@ -28,6 +28,9 @@ return [
     'validate' => 'Validate',
     'Cancel' => "Don't_save",
     'Save' => 'Save',
-    'Stay' => 'Stay_in_page'
+    'Stay' => 'Stay_in_page',
+    'Name' => 'Name',
+    'StartDate' => 'Start date',
+    'EndDate' => 'End date'
 
 ];

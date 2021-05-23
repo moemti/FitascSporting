@@ -8,4 +8,9 @@
         
         @include('partials.admin.message')
         @include('partials.admin.confirm')
+
+        @if (!isset($DeniedPermissions) || !in_array("Delete", $DeniedPermissions))
+                   
         @include('partials.admin.confirmsave')
+
+        @endif

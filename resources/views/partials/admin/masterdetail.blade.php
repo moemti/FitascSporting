@@ -34,7 +34,6 @@
 
   	<script type="text/javascript" src={{asset("/assets/scripts/modules/framework/masterdetail.js")}}></script>
       
-
       
         @yield('masterdetail')
             
@@ -79,6 +78,8 @@
     @endpush
     
 
+
+    
     @push('subtab')
         @isset($subtabs)
             @foreach($subtabs as $subtab)
@@ -164,8 +165,10 @@
                     
                     @include('partials.admin.filtercustom')
 
-                
+                    @if ( !in_array("Edit", $DeniedPermissions))
                 <button type="button" data-toggle="tooltip" class="btn-shadow mr-3 btn btn-primary " title="{{trans('general.add')}}" onclick="addNew()"><i class="fa fa-plus"></i></button>
+                    @endif
+            
             </div>   
          </div>
     </div>
@@ -222,6 +225,9 @@
                     <ul id="ul-actions" class="nav flex-column">
                         @stack('actions')
                       
+                        @if ( !in_array("Delete", $DeniedPermissions))
+                   
+
                         <li class="nav-item" id="deletemasteraction">
                             <a class="nav-link" onclick="DeleteDocument()">
                                
@@ -230,6 +236,9 @@
                                 </span>
                             </a>
                         </li>
+
+                        @endif
+
                     </ul>
                 </div>
             </div>
@@ -252,11 +261,24 @@
                     <div class = "row detail-tab">
                         @stack('subtab')
                     </div>
-                    <form  method="POST" id="detailform">
+                    <form  method="POST" id="detailform" 
+                    
+                                @if ( in_array("Edit", $DeniedPermissions)) 
+                                    class="readonly" 
+                                @endif
+                    
+                    >
+
+                    @if ( !in_array("Edit", $DeniedPermissions))
+                   
+
                         <div class="d-block text-right card-footer">
                             <a href="javascript:CancelUpdates();" class="btn-wide btn btn-secondary">Cancel</a>
                             <button type ="submit" class="btn-wide btn btn-success editable">Save</button>
                         </div>  
+
+                    @endif
+
                         <div class="mol-tab" id="detail-0">
                             <input id="isnew" name= "isnew" hidden>
                         
@@ -265,10 +287,13 @@
                             <div id="MasterDetailDetail" class="form-row">
                                 <div class="col-md-12">
                                     <label for="documentdetails">Details</label>
+                                    @if ( !in_array("Edit", $DeniedPermissions))
                                     <div class="text-right p-1">
                                         <button id= "deletedetail" type="button" data-toggle="tooltip" class="btn-shadow  btn btn-danger editable detailbtn" title="" onclick="deleteDetail()" data-original-title="Delete"><i class="fa fa-minus"></i></button>
                                         <button id= "adddetail" type="button" data-toggle="tooltip" class="btn-shadow  btn btn-primary editable detailbtn" title="" onclick="addDetail()" data-original-title="Add"><i class="fa fa-plus"></i></button>
                                     </div>
+
+                                    @endif
 
                                     <div id='jqxWidget' style="font-size: 12px; font-family: Verdana;">
                                         <div id="documentdetails">

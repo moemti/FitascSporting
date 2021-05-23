@@ -154,6 +154,15 @@ Route::get('/view-clear', function() {
                  Route::post('deletetraining25financeajax', 'Training25financeController@deleteitemajax');
                  Route::post('getPersonInfo', 'Training25financeController@getPersonInfo');
                  
+                 //=============================  competitions  ================================
+
+                 Route::get('competitions', 'CompetitionController@getlist');
+                 Route::post('savecompetitionajax', 'CompetitionController@saveitemajax');
+                 Route::post('getcompetitionsajax', 'CompetitionController@getitemsajax');
+                 Route::post('getcompetitionajax', 'CompetitionController@getitemajax');
+                 Route::post('deletecompetitionajax', 'CompetitionController@deleteitemajax');
+ 
+
 
             });
     });

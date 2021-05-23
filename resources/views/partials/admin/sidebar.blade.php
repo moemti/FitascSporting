@@ -89,16 +89,22 @@ echo "; </script>"
 
                             
                             @if (session("PersonId") > 0)
+
+                            <li class="app-sidebar__heading"> {{trans('menu.competitions')}}</li>
+
+                                @Menu(competitions, menu.competitions, '',) 
+                                @Menu(compresults, menu.compresults,  '',)       
+
+
                             <li class="app-sidebar__heading"> {{trans('menu.trainings')}}</li>
                                 @Menu(trainings, menu.mytrainings,mytrainings,)
                                 @Menu(training25s, menu.training25,training25,)
 
-                            @endif
-                            
-                            @if (session("PersonId") > 0)
+
+                                             
+
+
                             <li class="app-sidebar__heading"> {{trans('menu.finance')}}</li>
-                              
-                          
                                 @Menu(training25finance, menu.training25finance,training25finance, )
 
 

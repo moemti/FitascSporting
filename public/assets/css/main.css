@@ -43824,3 +43824,11 @@ span.multiselect-native-select select {
 	.nav-item.disabled>a::before{
 		background: gray!important;
 	}
+
+	form.readonly input, form.readonly select {
+		pointer-events: none;
+		background: rgba(26, 54, 126, 0.125);
+	}
+	select.form-control{
+		padding-top: 0.00rem!important;
+	}

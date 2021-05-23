@@ -35,6 +35,40 @@ class Permissions
 
         return self::getPermission($action, $PersonId, $OrganizationId);
     }
+
+
+    public static function GetDeniedModulePermissions($personid, $ModuleCode){
+        
+
+        if ($personid == null)
+            $personid = 'null';
+
+        $sql = "SELECT coalesce(pp.PermissionType, r.PermissionType, 0) as PermissionType,
+                 replace(a.Code, '{$ModuleCode}.', '') as Code
+        FROM action a
+
+
+        left join (select r.PermissionType, r.ActionId
+        	from permissionrole r 
+        	inner join personxrole pr on pr.RoleId = r.RoleId and pr.PersonId = {$personid}
+             ) r on  r.ActionId = a.ActionId 
+
+        left join permissionperson pp on pp.ActionId = a.ActionId and pp.PersonId = {$personid}
+        where a.code like '{$ModuleCode}.%' or a.code = '{$ModuleCode}' ";
+
+        $r = DB::select($sql);
+
+        $res = [];
+
+        for ($i = 0; $i < count($r); $i++){
+            if ($r[$i]->PermissionType == 0)
+                array_push($res, $r[$i]->Code);
+        };
+        
+        return $res;
+        
+        
+    }
     
     private static function getPermission($action, $personid, $organizationid){
 
@@ -45,8 +79,12 @@ class Permissions
         $sql = 
         "SELECT coalesce(pp.PermissionType, r.PermissionType, 0) as PermissionType
         FROM action a
-        left join permissionrole r on r.ActionId = a.ActionId 
-        left join personxrole pr on pr.RoleId = r.RoleId and pr.PersonId =  {$personid}
+ 
+        left join (select r.PermissionType, r.ActionId
+        	from permissionrole r 
+        	inner join personxrole pr on pr.RoleId = r.RoleId and pr.PersonId = {$personid}
+             ) r on  r.ActionId = a.ActionId 
+
         left join permissionperson pp on pp.ActionId = a.ActionId and pp.PersonId = {$personid}
         where a.Code = '{$action}' ";
 

@@ -62,6 +62,8 @@ return [
     'mytrainings'=>'My trainings',
     'training25'=>'Club 25 training',
     'training25finance'=>'Club 25 finance',
-    'finance'=>'Finance'
+    'finance'=>'Finance',
+    'competitions'=>'Competitions',
+    'compresults'=>'Results'
     
 ];

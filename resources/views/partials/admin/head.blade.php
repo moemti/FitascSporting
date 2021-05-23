@@ -13,8 +13,7 @@
     <!-- Disable tap highlight on IE -->
     <meta name="msapplication-tap-highlight" content="no">
 
-
-
+     
     	<script src={{asset("/assets/scripts/vendors/jquery-3.3.1.min.js")}}></script>
         <script src={{asset("/assets/scripts/vendors/bootstrap.bundle.min.js")}}></script>
         <script src={{asset("/assets/scripts/vendors/metismenu.js")}}></script>

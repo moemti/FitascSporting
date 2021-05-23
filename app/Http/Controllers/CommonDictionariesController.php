@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Redirect;
 use App\Http\Controllers\Controller;
 use App\Models\Dictionaries\Dictionary;
+use App\Models\Common\Permissions;
 
 
 
@@ -70,6 +71,19 @@ class CommonDictionariesController extends Controller{
 
     }
 
+    public function getRanges(){
+        $OrganizationId = session('organizationId');
+        return Dictionary::getRanges($OrganizationId);
+
+    }
+
+    public function getSports(){
+        $OrganizationId = session('organizationId');
+        return Dictionary::getSports($OrganizationId);
+
+    }
+
+
     public function getModuleInitialFilter($modulecode){
         $OrganizationId = session('organizationId');
         $configcode = 'ALL_REG';
@@ -79,5 +93,11 @@ class CommonDictionariesController extends Controller{
         else
             return ['None', ' 1 = 0 '];
     }
+
+    public function GetDeniedModulePermissions($personId, $ModuleCode){
+        return Permissions::GetDeniedModulePermissions($personId, $ModuleCode);
+
+    }
+
 
 }
