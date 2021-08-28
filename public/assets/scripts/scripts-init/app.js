@@ -275,9 +275,16 @@ $( document ).ready(function() {
     // Drawer
 
     $('.open-right-drawer').click(function () {
-        $(this).addClass('is-active');
-        $('.app-drawer-wrapper').addClass('drawer-open');
-        $('.app-drawer-overlay').removeClass('d-none');
+        if ($(this).hasClass('is-active')){
+            $('.app-drawer-overlay').addClass('d-none');
+            $('.app-drawer-wrapper').removeClass('drawer-open');
+            $('.open-right-drawer').removeClass('is-active');
+        }
+        else{
+            $(this).addClass('is-active');
+            $('.app-drawer-wrapper').addClass('drawer-open');
+            $('.app-drawer-overlay').removeClass('d-none');
+        }
     });
 
     $('.drawer-nav-btn').click(function () {

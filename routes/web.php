@@ -22,10 +22,33 @@ Route::get('/view-clear', function() {
 
  Route::get('/login', function(){
      return view('auth/login');
- });
+ })->name('login');
+
+
 
     Route::post('authenticate', 'Auth\LoginController@authenticate');
     Route::get('logout', 'Auth\LoginController@logout');
+    Route::post('resetpassword', 'Auth\LoginController@resetpasswordmail');
+
+    Route::get('changepassword', 'Auth\LoginController@changepassword');
+    Route::post('changethepassword', 'Auth\LoginController@changethepassword');  
+
+    Route::post('registerme', 'Auth\LoginController@register');  
+
+    Route::get('confirmregistration', 'Auth\LoginController@confirmregistrationemail');  
+    
+
+    
+    Route::get('register', function (){
+        return view('auth/register');
+    
+    });
+
+
+    Route::get('resetform', function (){
+        return view('auth/reset');
+    
+    });
 
    
 
@@ -34,16 +57,16 @@ Route::get('/view-clear', function() {
 
         Route::get('printinvoice/{DocumentId}', 'ClientInvoiceController@printinvoice');
         Route::get('exchangerates', 'UtilitiesController@exchangerates');
-        Route::get('welcome', 'DashboardController@welcome');   
-        Route::get('/', 'DashboardController@welcome'); 
+       
             
         Route::group(['middleware' => 'navigationlog'], function () {
             Route::middleware(['guest'])->group(function(){
              
               
-               
+                Route::get('/', 'DashboardController@welcome'); 
              
-
+                Route::get('welcome', 'DashboardController@welcome');   
+      
                 //============================= person ======================================
                 Route::get('persons', 'PersonController@getlist');
                 Route::post('savepersonajax', 'PersonController@saveitemajax');
@@ -52,6 +75,21 @@ Route::get('/view-clear', function() {
                 Route::post('deletepersonajax', 'PersonController@deleteitemajax');
                 Route::post('getpersonfunctionsajax', 'PersonController@getdetaillistajax');
 
+                 //============================= own person ======================================
+
+                Route::get('userperson', 'UserPersonController@getitem');
+                Route::post('saveuserpersonajax', 'UserPersonController@saveitemajax');
+                Route::post('getuserpersonajax', 'UserPersonController@getitemajax');
+                Route::get('changemypass', function()
+                        {
+                                return View('/auth/changemypassword');
+                        }
+                );
+
+                Route::post('changemypassword', 'UserPersonController@changemypassword');
+                
+
+                
                 //============================= roles ======================================
                
                 Route::get('roles', 'RoleController@getlist');

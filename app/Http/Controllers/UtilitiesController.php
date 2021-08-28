@@ -17,6 +17,7 @@ class UtilitiesController extends Controller
 {
 
     public function exchangerates(Request $request){
+        $this->downloadBNR($request);
         $Currencies = app(CommonDictionariesController::class)->getCurrencies();
         return view('utilities/exchangerates', ['currencies'=>$Currencies ]);
     }

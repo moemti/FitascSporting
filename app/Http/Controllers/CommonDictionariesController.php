@@ -48,7 +48,6 @@ class CommonDictionariesController extends Controller{
     }
 	
     public function getDeliveryRep(){
-
         // todo sa punem rolul in functie
         $OrganizationId = session('organizationId');
         return Dictionary::getPersons($OrganizationId);

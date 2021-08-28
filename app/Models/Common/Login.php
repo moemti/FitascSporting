@@ -28,6 +28,13 @@ class Login
     }    
 
 
+    public static function EmailExists($email){
+        $sql = "select email from user u inner join person p on p.PersonId = u.PersonId where p.Email = '$email'";
+        $user = DB::select($sql);
+        return $user;
+    }
+
+
     public static function Register($FirstName, $Name, $Email, $password){
        
 

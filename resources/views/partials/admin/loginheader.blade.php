@@ -75,7 +75,7 @@
 
 
                                         @if (session("PersonId") > 0)
-                                        <div class="scroll-area-xs" style="height: 150px;">
+                                        <div class="scroll-area-xs" style="height: 170px;">
                                             <div class="scrollbar-container ps">
                                                 <ul class="nav flex-column">
                                                     <li class="nav-item-header nav-item">Activity
@@ -90,8 +90,14 @@
                                                     <li class="nav-item-header nav-item">My Account
                                                     </li>
                                                     <li class="nav-item">
-                                                        <a href="javascript:void(0);" class="nav-link">Settings
-                                                            <div class="ml-auto badge badge-success">View
+                                                        <a href="{{url('/userperson')}}" class="nav-link">My profile
+                                                            <div class="ml-auto badge badge-success">Profile
+                                                            </div>
+                                                        </a>
+                                                    </li>
+                                                    <li class="nav-item">
+                                                        <a href="{{url('/changemypass')}}" class="nav-link">Change password
+                                                            <div class="ml-auto badge badge-danger">Password
                                                             </div>
                                                         </a>
                                                     </li>

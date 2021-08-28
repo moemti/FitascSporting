@@ -26,6 +26,14 @@ class Options {
                 $locale = 'GB';
             };
         }
+
+       
+         if ($locale == 'en')      
+             $locale = 'GB';
+
+
+
+
         session(['Locale' => $locale]);
 
 

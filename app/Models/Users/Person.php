@@ -90,6 +90,17 @@ class Person extends BObject{
         
     }
 
+
+
+    public function OnSaveError($e){
+       
+        $message = $e->getMessage();
+        if (strpos($message, 'Integrity constraint violation: 1062 Duplicate entry') && strpos($message, "for key 'Email'")){
+            throw new \Exception('Email-ul introdus mai exista la un alt utilizator!');
+        }
+ 
+    }
+
     // parametrii
 
     public function getMasterOthers($ItemId, $OrganizationId){

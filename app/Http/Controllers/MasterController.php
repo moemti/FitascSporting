@@ -94,6 +94,25 @@ class MasterController extends Controller
                 'DetailPrimaryKey'=>$DetailPrimaryKey, 'DefaultFilter'=>$filter], $this->getDictionaries()));
     }
 
+
+    // this is used just for one item show
+    public function getItem(Request $request){
+
+        $OrganizationId = session('organizationId');
+        $ItemId = $request[$this->BObject()->MasterKeyField()];
+        $PersonId = session('PersonId');
+
+
+        $Permissions = app(CommonDictionariesController::class)->GetDeniedModulePermissions($PersonId, $this->ModuleCode);
+
+
+        return view($this->views['master'], array_merge(['master' => $this->BObject()->getMaster($ItemId), 
+                   'DeniedPermissions' => $Permissions], $this->getDictionaries()));
+   
+
+
+    }
+
     public function getitemsajax(Request $request){
 
         $OrganizationId = session('organizationId');

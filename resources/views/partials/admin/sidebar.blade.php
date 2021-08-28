@@ -93,7 +93,7 @@ echo "; </script>"
                             <li class="app-sidebar__heading"> {{trans('menu.competitions')}}</li>
 
                                 @Menu(competitions, menu.competitions, '',) 
-                                @Menu(compresults, menu.compresults,  '',)       
+                               {{-- @Menu(compresults, menu.compresults,  '',) --}}      
 
 
                             <li class="app-sidebar__heading"> {{trans('menu.trainings')}}</li>

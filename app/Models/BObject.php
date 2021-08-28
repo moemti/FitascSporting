@@ -154,7 +154,7 @@ class BObject{
                     $sql = $this->MasterInsert;
                     foreach($fields as $key => $value){
                         if (!is_array($value))
-                            $sql = $this->paramreplace($key, $value, $sql); 
+                            $sql = self::paramreplace($key, $value, $sql); 
                     }
                 
                     
@@ -184,7 +184,7 @@ class BObject{
                    $sql = $this->MasterUpdate;
                     foreach($fields as $key => $value){
                         if (!is_array($value))
-                            $sql = $this->paramreplace($key, $value, $sql);
+                            $sql = self::paramreplace($key, $value, $sql);
                     }
                 
                   
@@ -208,6 +208,8 @@ class BObject{
         }
         catch(\Exception $e){
                 DB::rollBack();
+
+                $this->OnSaveError($e);
                 throw $e;
         }
         $this->afterSave($ItemId, $fields);
@@ -215,6 +217,7 @@ class BObject{
     }
     
 
+    public function OnSaveError($e){}
     public function afterSaveInTran($ItemId, $fields){}
     public function afterSave($ItemId, $fields){}
     public function beforeSaveInTran($fields){}
@@ -233,7 +236,7 @@ class BObject{
 
     }
 
-    public function beforeSave($fields){
+    public function beforeSave(&$fields){
         $this->validatebeforeSave($fields);
     }
 
@@ -302,11 +305,11 @@ class BObject{
             $sql = $this->DetailInsert;
             $sql = str_replace(":".$this->MasterKeyField(), $DocumentId, $sql); 
             foreach($detail as $key => $value){
-                $sql = $this->paramreplace($key, $value, $sql); 
+                $sql = self::paramreplace($key, $value, $sql); 
             }
             foreach($master as $key => $value){
                 if (!is_array($value))
-                    $sql = $this->paramreplace($key, $value, $sql); 
+                    $sql = self::paramreplace($key, $value, $sql); 
             }
 
             
@@ -325,11 +328,11 @@ class BObject{
         if ($sql == ''){
             $sql = $this->DetailUpdate;
             foreach($detail as $key => $value){
-                $sql = $this->paramreplace($key, $value, $sql); 
+                $sql = self::paramreplace($key, $value, $sql); 
             }
             foreach($master as $key => $value){
                 if (!is_array($value))
-                    $sql = $this->paramreplace($key, $value, $sql); 
+                    $sql = self::paramreplace($key, $value, $sql); 
             }
          
         }
@@ -345,18 +348,18 @@ class BObject{
         if ($sql == ''){
             $sql = $this->DetailDelete;
             foreach($detail as $key => $value){
-                $sql = $this->paramreplace($key, $value, $sql); 
+                $sql = self::paramreplace($key, $value, $sql); 
             }
             foreach($master as $key => $value){
                 if (!is_array($value))
-                    $sql = $this->paramreplace($key, $value, $sql); 
+                    $sql = self::paramreplace($key, $value, $sql); 
             }
          
         }
         return DB::unprepared($sql);
     }
 
-    public function paramreplace($param, $value, $sql){
+    public static function paramreplace($param, $value, $sql){
         $done = false;
         $sqlDone = '';
         $sqlToDo = $sql;
@@ -424,7 +427,6 @@ class BObject{
                     $v =  date( 'ymd', strtotime($fields->$v));
                     $IsDone = true;
                 }
-
             } 
             else{
                 $pos = strpos ($v, ';s');
@@ -434,8 +436,6 @@ class BObject{
                         $v = "'".$fields->$v."'";
                         $IsDone = true;
                     }
-                    
-
                 }else{
                     if ($fields->$v != ''){
                         $v = $fields->$v;
@@ -446,8 +446,6 @@ class BObject{
 
             if (!$IsDone)    
                 $v = $nullvalue;
-
-
 
             array_push( $val3, $v);    
             

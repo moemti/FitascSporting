@@ -1,4 +1,4 @@
-<div class="h-100 d-flex bg-white justify-content-center align-items-center col-md-12 col-lg-4 bg-premium-dark " style="color:silver;">
+<div class="h-100 d-flex bg-white justify-content-center align-items-center col-md-12 col-lg-12 bg-asteroid " style="color:silver;">
 <div class="mx-auto app-login-box col-sm-12 col-md-10 col-lg-4">
         <div class="logo" style="    margin-bottom: 100px;
                             margin-left: 30px;
@@ -16,7 +16,7 @@
             @csrf
             <div class="form-row">
                 <div class="col-md-12">
-                    <div class="position-relative form-group"><label for="username" class="">User name</label>
+                    <div class="position-relative form-group">
                         <input name="username" id="username" placeholder="User name here..." type="edit" class="form-control" >
                     </div>
                 </div>
@@ -31,7 +31,7 @@
             </div>
             <div class="form-row">    
                 <div class="col-md-12">
-                    <div class="position-relative form-group"><label for="examplePassword" class="">Password</label>
+                    <div class="position-relative form-group">
                         <input name="password" id="password" placeholder="Password here..." type="password" class="form-control" >
                     </div>
                 </div>
@@ -52,11 +52,25 @@
             </div>-->
             
             <div class="divider row"></div>
-            <div class="d-flex align-items-center">
-                <div class="ml-auto"><!--a href="javascript:void(0);" class="btn-lg btn btn-link">Recover Password</a-->
-                    <button class="btn btn-primary btn-lg">Login</button>
-                </div>
+
+            <div class=" d-block text-center">
+                     <button class="btn-wide btn-pill btn-shadow btn-hover-shine btn btn-primary btn-lg">Login</button>
+               
             </div>
         </form>
-    </div>
+        </br>
+        <div class="form-row">    
+                <div class="col-md-12">
+                    <div><a href="{{url('/resetform')}}">Forgot password</a></div>
+                    </div>
+                </div>
+        </div>
+
+        </br>
+        <div class="form-row">    
+                <div class="col-md-12">
+                    <div><a href="{{url('/register')}}">Register</a></div>
+                    </div>
+                </div>
+        </div>
 </div>

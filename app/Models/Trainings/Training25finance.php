@@ -18,16 +18,29 @@ class Training25finance extends BObject{
 
         $IsSuperUser = session('IsSuperUser');
 
+        $IsCollector = $this->IsCollector($PersonId);
+
         $filter = [];
 
-        array_push($filter,
-                ['Caption'=> 'My collectings',  'Filter'=> 'My', 'Label'=>'My', 'Warning' => '' ]);
+        if ($IsCollector == 1){
+            array_push($filter,
+                    ['Caption'=> 'My collectings',  'Filter'=> 'My', 'Label'=>'My collectings', 'Warning' => '' ]);
 
-        array_push($filter,
-                ['Caption'=> 'My clay collectings',  'Filter'=> 'MyClay', 'Label'=>'My clay', 'Warning' => '' ]);  
-                
-        array_push($filter,
-                ['Caption'=> 'My other colectings',  'Filter'=> 'MyOther', 'Label'=>'My other', 'Warning' => '' ]);
+            array_push($filter,
+                    ['Caption'=> 'My clay collectings',  'Filter'=> 'MyClay', 'Label'=>'My clay', 'Warning' => '' ]);  
+                    
+            array_push($filter,
+                    ['Caption'=> 'My other colectings',  'Filter'=> 'MyOther', 'Label'=>'My other', 'Warning' => '' ]);
+            
+            array_push($filter,
+                ['Caption'=> 'For validate payment',  'Filter'=> 'Validate', 'Label'=>'Pay', 'Warning' => '' ]);
+    
+        }
+        else{
+            array_push($filter,
+                    ['Caption'=> 'My finance',  'Filter'=> 'MyFin', 'Label'=>'My payments', 'Warning' => '' ]);
+
+        }
 
         if ($IsSuperUser == 1){
 
@@ -37,9 +50,7 @@ class Training25finance extends BObject{
         }
         
         
-        array_push($filter,
-            ['Caption'=> 'For validate payment',  'Filter'=> 'Validate', 'Label'=>'Pay', 'Warning' => '' ]);
-    
+        
         return $filter;
     
     } 
@@ -97,10 +108,11 @@ class Training25finance extends BObject{
         if ($filter == 'MyOther'){
             $sql = str_replace( array(":filter") ,array(" c.ColectorId = $PersonId and IsClay = 0 and IsPaid = 1"), $sql);
         }else
-        {
-           
+        if ($filter == 'MyFin'){
+            $sql = str_replace( array(":filter") ,array(" c.PersonId = $PersonId"), $sql);
+        }
+        else{
             $sql = str_replace( array(":filter", ) ,array( "c.ColectorId = $PersonId"), $sql);
-            
         }
     
         return $sql;
@@ -146,6 +158,19 @@ class Training25finance extends BObject{
         inner join role r on r.RoleId = x.RoleId and r.Code = 'CASIER' and p.OrganizationId = {$OrganizationId}");
         return $colectors;
 
+   }
+
+   public function IsCollector($PersonId){
+        $OrganizationId = session('organizationId');
+        $colectors = DB::select("select p.PersonId , p.Name 
+        from person p
+        inner join personxrole x on x.PersonId = p.PersonId
+        inner join role r on r.RoleId = x.RoleId and r.Code = 'CASIER' and p.OrganizationId = $OrganizationId and p.PersonId = $PersonId");
+        
+        if (count($colectors) > 0)
+            return 1;
+        else    
+            return 0;
    }
 
    
