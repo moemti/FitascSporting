@@ -134,22 +134,20 @@
                 
                 <div tabindex="-1" role="menu" aria-hidden="true" class="dropdown-menu dropdown-menu-right">
                     <ul id="ul-listactions" class="nav flex-column">
-                    @isset($listactions)    
-                        @foreach($listactions as $a) 
-                            @if (!isset($a->Forbidden) ||$a->Forbidden != 'false')
+                    @foreach($listactions as $a) 
+                     @if (!isset($a->Forbidden) ||$a->Forbidden != 'false')
 
-                                <li id = "listaction_{{$a->Code}}" class="nav-item">
-                                    <a class="nav-link" onclick="DoListAction('{{$a->Code}}', '{{$a->Warning}}')">
-                                        <i class="fa fa-angle-right"></i>&nbsp
-                                        <span>
-                                            {{trans($a->Name)}}
-                                        </span>
-                                    </a>
-                                </li>
-                            @endif
-                            
-                        @endforeach  
-                    @endif 
+                        <li id = "listaction_{{$a->Code}}" class="nav-item">
+                            <a class="nav-link" onclick="DoListAction('{{$a->Code}}', '{{$a->Warning}}')">
+                                <i class="fa fa-angle-right"></i>&nbsp
+                                <span>
+                                    {{trans($a->Name)}}
+                                </span>
+                            </a>
+                        </li>
+                    @endif
+                        
+                    @endforeach   
                         
                     </ul>
                 </div>
@@ -167,8 +165,8 @@
                     
                     @include('partials.admin.filtercustom')
 
-                    @if ( !isset($DeniedPermissions) ||  !in_array("Edit", $DeniedPermissions))
-                        <button type="button" data-toggle="tooltip" class="btn-shadow mr-3 btn btn-primary " title="{{trans('general.add')}}" onclick="addNew()"><i class="fa fa-plus"></i></button>
+                    @if ( !in_array("Edit", $DeniedPermissions))
+                <button type="button" data-toggle="tooltip" class="btn-shadow mr-3 btn btn-primary " title="{{trans('general.add')}}" onclick="addNew()"><i class="fa fa-plus"></i></button>
                     @endif
             
             </div>   
@@ -227,7 +225,7 @@
                     <ul id="ul-actions" class="nav flex-column">
                         @stack('actions')
                       
-                        @if ( !isset($DeniedPermissions) || !in_array("Delete", $DeniedPermissions))
+                        @if ( !in_array("Delete", $DeniedPermissions))
                    
 
                         <li class="nav-item" id="deletemasteraction">
@@ -265,13 +263,13 @@
                     </div>
                     <form  method="POST" id="detailform" 
                     
-                                @if (!isset($DeniedPermissions) || in_array("Edit", $DeniedPermissions)) 
+                                @if ( in_array("Edit", $DeniedPermissions)) 
                                     class="readonly" 
                                 @endif
                     
                     >
 
-                    @if (!isset($DeniedPermissions) || !in_array("Edit", $DeniedPermissions))
+                    @if ( !in_array("Edit", $DeniedPermissions))
                    
 
                         <div class="d-block text-right card-footer">
@@ -289,7 +287,7 @@
                             <div id="MasterDetailDetail" class="form-row">
                                 <div class="col-md-12">
                                     <label for="documentdetails">Details</label>
-                                    @if (!isset($DeniedPermissions) || !in_array("Edit", $DeniedPermissions))
+                                    @if ( !in_array("Edit", $DeniedPermissions))
                                     <div class="text-right p-1">
                                         <button id= "deletedetail" type="button" data-toggle="tooltip" class="btn-shadow  btn btn-danger editable detailbtn" title="" onclick="deleteDetail()" data-original-title="Delete"><i class="fa fa-minus"></i></button>
                                         <button id= "adddetail" type="button" data-toggle="tooltip" class="btn-shadow  btn btn-primary editable detailbtn" title="" onclick="addDetail()" data-original-title="Add"><i class="fa fa-plus"></i></button>
