@@ -1,5 +1,3 @@
-@permissionreturn("permissions")
-
 @extends('layouts.admin')
 
 

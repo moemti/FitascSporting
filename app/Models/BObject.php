@@ -404,7 +404,7 @@ class BObject{
     }
 
 
-    public function getFieldValues($fields, $valfields, $isarray = false, $isinsert = false, $nullvalue = 'null' ) {
+    public static function getFieldValues($fields, $valfields, $isarray = false, $isinsert = false, $nullvalue = 'null' ) {
 
         $val  = [];
         $val2 = [];

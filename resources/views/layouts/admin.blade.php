@@ -100,6 +100,16 @@
             window.location.replace("{{url('/login')}}");
 
         });
+
+        $(window).focus(function() {
+            $.ajax({
+		            type: 'POST',
+
+		            url: baseUrl + '/Focus',
+		            data: ''
+		            }
+		        );
+        });
     });
 
 

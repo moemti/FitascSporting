@@ -62,7 +62,7 @@ Route::get('/view-clear', function() {
         Route::group(['middleware' => 'navigationlog'], function () {
             Route::middleware(['guest'])->group(function(){
              
-              
+                Route::post('Focus', function(){});
                 Route::get('/', 'DashboardController@welcome'); 
              
                 Route::get('welcome', 'DashboardController@welcome');   

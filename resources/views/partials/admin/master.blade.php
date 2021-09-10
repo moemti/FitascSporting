@@ -283,4 +283,4 @@
 
 @endpush
 
-<!-- end masterdetail -->
+<!-- end master -->
